@@ -1,0 +1,70 @@
+.form-div{
+	font-size:20px;
+	color:white;
+}
+#data2{
+	color:black;
+	font-size:50px;
+}
+#data3{
+	color:black;
+	font-size:20px;
+}
+td{
+	text-align:left;
+}
+
+
+input[type=text]{
+	width: 400px;
+	height: 40px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+input[type=file]{
+	width: 200px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+    text-align:center;
+}
+input[type=file]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+input[type=time]{
+	width: 200px;
+	height: 40px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+    text-align:center;
+}
+input[type=time]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+

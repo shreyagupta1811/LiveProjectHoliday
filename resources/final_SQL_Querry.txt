@@ -1,0 +1,174 @@
+create database minor;
+
+use minor;
+
+create table owners
+(
+owner_id int not null auto_increment primary key,
+owner_name varchar(50) not null unique,
+email varchar(50) not null unique,
+password varchar(100) not null
+);
+
+create table cities
+(
+city_id int not null auto_increment primary key,
+city_name varchar(50) not null unique
+);
+	
+create table categories
+(
+category_id int not null auto_increment primary key,
+category_name varchar(30) not null
+);
+
+
+create table rest_registers
+
+(
+
+rest_register_id int not null auto_increment primary key,
+
+rest_name varchar(50) not null unique,
+
+rest_address varchar(50) not null unique,
+
+rest_contact varchar(20)  not null unique,
+
+owner_id int not null,
+
+city_id int not null,
+
+opTime varchar(20) not null,
+
+clTime varchar(20) not null,
+
+disp_img varchar(100) not null,
+
+constraint fk_rest_registers_owners foreign key (owner_id) references owners (owner_id),
+constraint fk_rest_registers_cities foreign key (city_id) references cities (city_id)
+);
+
+
+create table rest_pics
+(
+rest_pic_id int not null auto_increment primary key,
+pic_path varchar(100) not null ,
+rest_register_id int not null,
+constraint fk_rest_pics_rest_registers foreign key (rest_register_id) references rest_registers (rest_register_id) 
+);
+
+create table rest_categories
+(
+rest_category_id int not null auto_increment primary key,
+rest_register_id int not null ,
+category_id int not null,
+constraint fk_rest_categories_rest_registers foreign key (rest_register_id) references rest_registers (rest_register_id),
+constraint fk_rest_categories_categories foreign key (category_id) references categories (category_id)
+);
+
+create table foods
+(
+food_id int not null auto_increment primary key,
+food_name varchar(30) not null ,
+category_id int not null,
+constraint fk_foods_categories foreign key (category_id) references categories(category_id)
+);
+
+create table rest_foods
+(
+rest_food_id int not null auto_increment primary key,
+rest_category_id int not null,
+food_id int not null,
+food_price int(255) not null,
+constraint fk_rest_food_rest_categories foreign key (rest_category_id) references rest_categories(rest_category_id),
+constraint fk_rest_food_foods foreign key (food_id) references foods(food_id)
+);
+
+create table users
+(
+user_id int not null auto_increment primary key,
+user_name varchar(50) not null unique,
+email varchar(50) not null unique,
+password varchar(100) not null
+);
+
+insert into cities(city_name) values ('Jabalpur'),('Bhopal'),('Indore');
+select * from cities;
+
+insert into categories(category_name) values ('Chinese'),('South Indian'),('Italian'),('North Indian');
+select * from categories;
+
+insert into foods(food_name,category_id) values ('Hakka Noodles',1),('Veg Manchuria',1),('Spring rolls',1),
+('Szechwan Chilli Paneer',1), ('Honey Chilli Potato',1) , ('Momos',1),('Vegetable Fried Rice',1),
+('Vegetable Manchow Soup',1), ('Veg Crispy',1) , ('Dim Sums',1);
+select * from food;
+
+
+insert into foods(food_name,category_id) values ('Panzenella',3),('grilled bread',3),('Focaccia Bread',3),('Pasta',3), ('pizza',3) , ('Mushroom Risotto',3),('Panettone',3),('Pistachio Panna Cotta',3), ('Lasagna',3) , ('Tiramisu',3);
+select * from foods;
+
+insert into foods(food_name,category_id) values ('Chole Bhature',4),('Litti Chokha',4),('Kashmiri Dum Aloo',4),('Parathe',4), ('Rajma Chawal',4) , ('Dahi Vada',4),('Rabri',4),('Ghewar',4), ('Lasagna',4) , ('Lassi',4);
+select * from foods;
+
+insert into foods(food_name,category_id) values ('Dosa',2),('Idli',2),('Uttapam',2),('Vada',2), ('upma',2) , ('Payasam',2),('Biryani',2),('Idiappam',2), ('Avial',2) , ('Koottu',2);
+select * from foods;
+select * from rest_registers;
+show tables;
+select * from rest_foods;
+select * from owners;
+select * from foods;
+select * from cities;
+select city_name from cities where city_name like 'ja%';
+insert into cities(city_name) values ('Jaipur'),('Jalandhar'),('JagannathPuri'),('Jammu');
+select food_name,food_price from rest_foods natural join foods where rest_category_id IN(select rest_category_id from rest_categories where rest_register_id=6);
+select * from rest_pics;
+show tables;
+create table type_categories
+(
+type_category_id int not null auto_increment primary key,
+type_category varchar(50) not null
+
+);
+
+insert into type_categories(type_category) values ('religious'),('Adventurous'),('Family vacation'),('Honeymoon');
+
+select * from type_categories;
+
+
+create table accomodations
+(
+accomodation_id int not null auto_increment primary key,
+accomodation_name varchar(50) not null,
+address varchar(500) not null,
+accomodation_pic_path varchar(100) not null unique,
+city_id int not null,
+constraint fk_accomodations_cities foreign key(city_id) references cities(city_id)
+);
+
+create table packages
+(
+package_id int not null auto_increment primary key,
+package_name varchar(100) not null,
+type_category_id int not null,
+constraint fk_packages_type_categories foreign key(type_category_id) references type_categories(type_category_id),
+days int not null,
+cost int not null,
+start_end_point varchar(50) not null,
+accomodation_id int not null,
+constraint fk_package_accomodations foreign key(accomodation_id) references accomodations(accomodation_id),
+food varchar(50) not null,
+place_visit varchar(500) not null,
+transport varchar(100) not null,
+package_details varchar(500) not null,
+contact_no varchar(20) not null ,
+disp_img varchar(100) not null
+);
+
+create table package_pics
+(
+package_pic_id int not null auto_increment primary key,
+pic_path varchar(100) not null,
+package_id int not null,
+constraint fk_package_pics_packages foreign key(package_id) references packages(package_id)
+);
